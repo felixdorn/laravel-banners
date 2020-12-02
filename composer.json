@@ -1,0 +1,42 @@
+{
+    "name": "felixdorn/laravel-banners",
+    "type": "library",
+    "license": "MIT",
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "config": {
+        "sort-packages": true,
+        "preferred-install": "dist"
+    },
+    "require": {
+        "spatie/browsershot": "^3.41"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^2.16",
+        "orchestra/testbench": "^6.5",
+        "pestphp/pest": "^0.3.14",
+        "phpstan/phpstan": "^0.12.58",
+        "symfony/var-dumper": "^5.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Delights\\Banners\\": "src/"
+        }
+    },
+    "laravel": {
+        "providers": [
+            "Delights\\Banners\\BannersServiceProvider"
+        ]
+    },
+    "scripts": {
+        "lint": "php-cs-fixer fix -v",
+        "test:lint": "php-cs-fixer fix -v --dry-run",
+        "test:types": "phpstan analyse --ansi --memory-limit=0",
+        "test:unit": "pest --colors=always",
+        "test": [
+            "@test:lint",
+            "@test:types",
+            "@test:unit"
+        ]
+    }
+}

@@ -1,0 +1,11 @@
+{
+  "name": "@delights/banner",
+  "private": true,
+  "version": "0.1.0",
+  "main": "index.js",
+  "dependencies": {
+    "puppeteer": "^5.5.0"
+  },
+  "author": "",
+  "license": "MIT"
+}

@@ -36,7 +36,11 @@ class Generator
                 'body' => $this->body,
                 'image' => $this->image
             ])
-        )->base64Screenshot();
+        )
+            ->setNodeBinary(config('banners.node'))
+            ->setNpmBinary(config('banners.npm'))
+            ->setNodeModulePath(config('banners.node_modules'))
+            ->base64Screenshot();
 
         $image = imagecreatefromstring($base64Image);
 

@@ -6,5 +6,11 @@ return [
 
     'description' => 'An application page.',
 
-    'logo' => '',
+    'image' => '',
+
+    'node' => base_path('vendor/bin/node'),
+
+    'npm' => base_path('vendor/bin/npm'),
+
+    'node_modules' => base_path('node_modules')
 ];

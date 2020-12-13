@@ -1,6 +1,7 @@
 <?php
 
 namespace Delights\Banners;
+
 use Spatie\Browsershot\Browsershot;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
@@ -14,7 +15,8 @@ class Generator
         string $title = null,
         string $body = null,
         string $image = null
-    ) {
+    )
+    {
         $this->title = $title ?? config('banners.title');
         $this->body = $body ?? config('banners.body');
         $this->image = $image ?? config('banners.image');
@@ -24,30 +26,36 @@ class Generator
         string $title = null,
         string $body = null,
         string $image = null
-    ): StreamedResponse {
+    ): StreamedResponse
+    {
         return (new static($title, $body, $image))->downloadResponse();
     }
 
     public function downloadResponse(): StreamedResponse
     {
-        $base64Image = Browsershot::url(
-            route('render-banner') .  '?' . http_build_query([
-                'title' => $this->title,
-                'body' => $this->body,
-                'image' => $this->image
+        $image = Browsershot::url(
+            route('render-banner') . '?' . http_build_query([
+                'payload' => json_encode([
+                    'title' => $this->title,
+                    'body' => $this->body,
+                    'image' => $this->image
+                ], JSON_THROW_ON_ERROR)
             ])
         )
+            ->addChromiumArguments(app()->environment('local') ? [
+                'ignore-certificate-errors'
+            ] : [])
             ->setNodeBinary(config('banners.node'))
             ->setNpmBinary(config('banners.npm'))
             ->setNodeModulePath(config('banners.node_modules'))
-            ->base64Screenshot();
-
-        $image = imagecreatefromstring($base64Image);
+            ->screenshot();
 
         abort_unless($image !== '', 404);
 
         return response()->stream(function () use ($image) {
-            return stream_get_contents($image);
-        });
+            echo $image;
+        }, 200, [
+            'Content-Type' => 'image/png'
+        ]);
     }
 }

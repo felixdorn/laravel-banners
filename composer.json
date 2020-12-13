@@ -11,7 +11,8 @@
   "require": {
     "mouf/nodejs-installer": "^1.0",
     "spatie/browsershot": "^3.41",
-    "ext-gd": "*"
+    "ext-gd": "*",
+    "ext-json": "*"
   },
   "require-dev": {
     "friendsofphp/php-cs-fixer": "^2.16",
@@ -33,7 +34,7 @@
     },
     "mouf": {
       "nodejs": {
-        "version": "~0.12",
+        "version": "~12",
         "targetDir": "vendor/nodejs/nodejs",
         "forceLocal": false
       }

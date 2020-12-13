@@ -17,7 +17,7 @@
     <div class="max-w-xl text-white bg-gray-900 p-8 w-full">
         <img src="{{ $image }}" alt="">
         <h1 class="text-5xl mt-12">{{ $title }}</h1>
-        <p class="mt-4 text-xl">{{ $description }}</p>
+        <p class="mt-4 text-xl">{{ $body }}</p>
     </div>
 </body>
 

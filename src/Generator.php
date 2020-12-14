@@ -47,7 +47,7 @@ class Generator
                 ], JSON_THROW_ON_ERROR)
             ])
         )
-            ->windowSize(1920, 1280)
+            ->windowSize(1200, 620)
             ->addChromiumArguments(app()->environment('local') ? [
                 'ignore-certificate-errors'
             ] : [])

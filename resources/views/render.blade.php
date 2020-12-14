@@ -13,14 +13,11 @@
         }
     </style>
 </head>
-<body>
-<div style="border-width: 22px" class="border-indigo-600 h-screen p-24 flex justify-between flex-col">
-    <img src="{{ $image }}" alt="" class="w-32 h-32">
-    <div>
-
-        <h1 class="font-bold text-indigo-600" style="font-size: 120px;">{{ $title }}</h1>
-        <p class="text-6xl text-gray-600 mt-16" style="line-height: 82px">{{ $body }}</p>
-    </div>
+<body class="p-6 flex items-center justify-center">
+<div class="h-full bg-white p-16 rounded-lg flex justify-between flex-col">
+    <img src="{{ $image }}" alt="" class="w-16 h-16">
+    <h1 class="font-bold text-indigo-600 mt-8" style="font-size: 60px;">{{ $title }}</h1>
+    <p class="text-2xl text-gray-600 mt-8" style="line-height: 36px">{{ $body }}</p>
 </div>
 
 </body>

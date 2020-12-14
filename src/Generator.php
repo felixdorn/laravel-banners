@@ -10,50 +10,59 @@ class Generator
     private string $title;
     private string $body;
     private string $image;
+    private string $theme;
 
     final public function __construct(
         string $title = null,
         string $body = null,
-        string $image = null
+        string $image = null,
+        string $theme = null
     )
     {
         $this->title = $title ?? config('banners.title');
         $this->body = $body ?? config('banners.body');
         $this->image = $image ?? config('banners.image');
+        $this->theme = $theme ?? config('banners.theme');
     }
 
     public static function make(
         string $title = null,
         string $body = null,
-        string $image = null
+        string $image = null,
+        string $theme = null
     ): StreamedResponse
     {
-        return (new static($title, $body, $image))->downloadResponse();
+        return (new static($title, $body, $image, $theme))->downloadResponse();
     }
 
     public function downloadResponse(): StreamedResponse
     {
-        $image = Browsershot::url(
+        $screenshot = Browsershot::url(
             route('render-banner') . '?' . http_build_query([
                 'payload' => json_encode([
                     'title' => $this->title,
                     'body' => $this->body,
-                    'image' => $this->image
+                    'image' => $this->image,
+                    'theme' => $this->theme
                 ], JSON_THROW_ON_ERROR)
             ])
         )
+            ->windowSize(1920, 1280)
             ->addChromiumArguments(app()->environment('local') ? [
                 'ignore-certificate-errors'
             ] : [])
             ->setNodeBinary(config('banners.node'))
             ->setNpmBinary(config('banners.npm'))
             ->setNodeModulePath(config('banners.node_modules'))
+            ->disableJavascript()
+            ->waitUntilNetworkIdle()
+            ->fullPage()
             ->screenshot();
 
-        abort_unless($image !== '', 404);
+        abort_unless($screenshot !== '', 404);
 
-        return response()->stream(function () use ($image) {
-            echo $image;
+        return response()->stream(function () use ($screenshot) {
+            echo $screenshot;
         }, 200, [
             'Content-Type' => 'image/png'
         ]);

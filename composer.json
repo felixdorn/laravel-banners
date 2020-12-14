@@ -34,9 +34,9 @@
     },
     "mouf": {
       "nodejs": {
-        "version": "~12",
+        "version": "^14",
         "targetDir": "vendor/nodejs/nodejs",
-        "forceLocal": false
+        "forceLocal": true
       }
     }
   },

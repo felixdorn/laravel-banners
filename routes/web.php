@@ -9,13 +9,14 @@ Route::get('/_/banners/generate', function (Request $request) {
     $request->validate([
         'title' => 'required|string',
         'body' => 'required|string',
-        'image' => 'required|string'
+        'image' => 'required|string',
     ]);
 
     return Generator::make(
         $request->query('title'),
         $request->query('body'),
         $request->query('image'),
+        $request->query('theme')
     );
 })->name('generate-banner');
 

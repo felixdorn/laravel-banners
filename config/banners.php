@@ -8,6 +8,8 @@ return [
 
     'image' => '',
 
+    'theme' => 'light',
+
     'node' => base_path('vendor/bin/node'),
 
     'npm' => base_path('vendor/bin/npm'),

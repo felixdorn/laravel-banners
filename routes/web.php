@@ -10,13 +10,17 @@ Route::get('/_/banners/generate', function (Request $request) {
         'title' => 'required|string',
         'body' => 'required|string',
         'image' => 'required|string',
+        'width' => 'required|numeric',
+        'height' => 'required|numeric'
     ]);
 
     return Generator::make(
         $request->query('title'),
         $request->query('body'),
         $request->query('image'),
-        $request->query('theme')
+        $request->query('theme'),
+        $request->query('width'),
+        $request->query('height')
     );
 })->name('generate-banner');
 
